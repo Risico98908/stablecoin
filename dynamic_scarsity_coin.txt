@@ -1,0 +1,703 @@
+Proposal algorithmic stablecoin.
+Dynamic scarsity coin.
+
+
+
+465. Basket.
+	 First of all we create a basket of financial asset, for example physical commodities.
+	 With some API and oracle, we import inside the software the Basket Price, for short PB$.
+	 In this paper we can assume PB=1$ just to simplifies.
+	 The price is updated for example hourly or more frequenly.
+
+	 Another idea is a basket of the major fiat currencies: usd, euro, ruble, yuan, yen, etc..
+	 
+
+
+
+
+
+786. Every hour, or more frequently, the software checks the price PB$ in USD via API, and other data.
+
+	 For security reason the software does not accept variation of PB$ over q25=10% daily.
+	 
+	 Example.
+	 Let's assume, according the API on 10:00 PB$=100$
+	 Let's assume, according the API on 15:00 PB$=112$
+
+	 This is a 12% variation in 5 hours. Strange!
+	 It's possible that the API is hacked.
+	 In this case the software uses the average value between 100$ and 112$, and this is 106$.
+	 In the wrost case the software uses a q26=10% variation, this is 110$.
+	 
+
+
+
+
+
+
+445. More of less this is an algorithmic stabale coin.
+	 It's value should be always near PB$;
+	 Oscillations in the range 0.9 to 1.1 are normal;
+	 Oscillations in the range 0.8 to 0.1.2, are less normal but not catastrophic;
+
+
+
+
+345. Keep in mind, fraud, speculation and mistakes often use the surprise effect, and happen quickly.
+
+	 When necessary, the software automatically slow downs to be more stable;
+
+	 The main priority is to keep the value 1 DSC = PB$ .
+
+
+
+
+325. The parameter used in this paper are  not strict.
+	 The community can change them with a voting system.
+	 For example it's possible to change the quantity q25.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+589. Collateral coins.
+	 
+	 A. As general rule, 2/3 of the coins inside your wallet are used as collateral for 30days.
+
+
+	 B. Every time you send coins from your wallet W1 to a wallet W2, 
+	 you can send max the 1/3 of the coins inside W1.
+
+	 The 2/3 is the collateral.
+	 So, if you disvalue the coins intentionally or not, you disvalue the 2/3 of your coins too;
+
+	 Furthermore, if you cannot move easly the 2/3 of your coins, 
+	 you can use only 1/3 of them to speculate,
+	 your speculative attack is weaker.
+
+
+	 B. Look this example.
+	 Let's assume on the day 1, inside your wallet there are 99DSC.
+	 On day 1 you can spend max 33DSC.
+	 You have to wait 30 days before you can spend some other coins.
+
+	 Let's assume on the day 31, inside your wallet there are 66DSC.
+	 You can spend max 22DSC, becasue 22= 33% of 66.
+	 You have to wait 30 days before you can spend some other coins.
+	 And so on.
+
+
+	 This should help the coins system to be stable.
+	 This is a protection against speculation, shorting, 
+	 intentional or unintentional disvaluation of the coins.
+	 
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+789. Price 1DSC = PB$. 
+
+	 A. Our main purpose is: the average price over time should be 1DSC = PB$;
+	 Some oscillations, say more or less 10%, are acceptable. 
+
+
+	 We use a reward system to encurage the users, especially the coins' sellers, to exchange coins 
+	 when the price is in the range 0.95 PB to 1.05 PB;
+
+	 When the price is in the range 0.95 to 1, if the seller sends X coins, he gets a reward 
+	 q16=X * (2.5/1000);
+
+	 When the price is in the range 1 to 1.05, if the seller sends X coins, he gets a reward 
+	 q16=X * (5/1000);
+
+
+	 The software adds q16 coins to the seller's wallet and burns q16 coins from the 
+	 buyer/receiver wallet;
+
+	 Now image there is a whale with many coins, probably he tries to sell this coins 
+	 in the range 0.95 to 1.05 to get the rewards;
+
+
+	 Furthermore, the buyer pays another cost too: q17=q16*0.5.
+	 This asimmetry, discurage bots to buy and sell frequenly and manipulate the market;
+	 If you buy and sell your own coin at the same price, say 1.01 PB$, you lose the 0.025%
+
+
+
+
+
+
+	 B. Observation about cost and reward.
+
+	 B1. The buyer pays the reward to the seller, and probabilty this cost discurages him to buy, 
+	 but a casual small buyer who needs coins has not a big influence on the price, 
+	 and maybe does not care about small infrequent costs;
+
+
+	 B2. Ordinary people probably buys and sells less then 5000$ monthly, the 0.025% fee is 7.5$ ;
+
+
+
+
+	
+
+	 C. Timing
+	 If the price stays in the range 0.95-1.05 PB$, every account can send coins 1 times every 10 minutes.
+	 This reduce high frequency bots activity, speculation, etc;
+
+
+
+
+
+
+
+
+
+
+
+432. If the price is 1DSC=N $, where N<0.95 PB, the software runs this procedures.
+
+	 Procedure 1. Burning coins.
+
+
+	 A. If you buy or sell coins when the price is low, you are disvaluing them, intentionally or not.
+	 So you should pay a penality to the community.
+
+	
+	 B. If the price is low, maybe there are too many coins in circulation.
+	 So it's necessary to create scarsity.
+	 
+
+		
+
+	 
+	 C. When the price is N<0.95 PB, if you exchange X coins, 
+	 the software uses this formula to burns coins.
+
+	 q5= X * ((LOG10(PRICE(1h)/3))^4)/PRICE(1h) 
+	 PRICE(1h) is the average price of the last hour.
+
+
+
+
+
+	 Example. Formula q5 with X=1 coin;
+	 Price	PENALITY
+	 1.00	0
+	 0.90	0.08
+	 0.80	0.14
+	 0.70	0.23
+	 0.60	0.40
+	 0.50	0.73
+	 0.51	1.02 *
+
+
+
+
+	 
+
+
+	 C. Observation on the formula q5.
+	 As you can see the penality is low if the price is near 1 PB, say 0.9 PB.
+	 It increase quickly if the price is N< 0.7 PB;
+	 It explodes if the price is N< 0.51 PB;
+
+	 This logarithmic formula is at same time enough elastic in the range 0.95 to 0.7,
+	 and strict for N<0.70.
+
+	 This property makes this formula fit.
+
+
+	 
+
+
+
+
+
+
+	 Procedure 2. Emergency mode.
+
+
+	 A. If the price is falling under 0.75 PB, this value can be indicative of a speculative attack, 
+	 or strong disvaluation.
+	 So, the coin system slow downs. It enter in emergency mode.
+
+
+	 Definitions.
+	 price(1h) : the average price of the last hour.
+	 price(500h) : the average price of the last 500 hours.
+
+
+	 Every time the price(1h)<0.75 PB the system enter in emergency mode A.
+	 1. The software block the 90% of the coins for 30 minutes. 	 
+	 2. Every account can exchanges coin 1 time every 30 minutes.
+	 3. Every new address requires 3h to be enabled.
+	 4. The cost of every new address rise 0.005$, by default it is 0.001$.
+
+
+	 Every time the price(500h)<0.75 PB the system enter in emergency mode B.
+	 1. The software burns daily 0.001% of every wallet, this is  1,4% yearly.
+	 2. The cost of every new address rise 0.005$.
+
+
+
+
+	 	
+
+
+
+
+
+	 C. Observation on emergency mode B.
+	
+	 C1. The Whales can partially influence the market price, this is true for every asset.
+	 Burning the 1,4% yearly force them to keep the price above the line 0.75 PB.
+
+	
+	 C2. A burning procedure like this, hits especially the whales, so reduce their influence, 
+	 so makes the system less manipulable and stable;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+114. If the price is 1DSC=N $, where N>1.05, the software runs this procedures.
+
+
+
+	 A. Penality
+	 If an account exchnages X coins, and if the price is too high, it pay a penality q6(X).
+	 The purpose is to force the users to exchange 1 COIN for 1PB $
+
+	 In the range 1.05 PB to 1.15 PB there is no penality;
+	 If N>1.15, the penality is q6=X * [((PRICE/((LOG10((PRICE)/3))^4))-38.24)/100 ]
+	 The formula q6, as the formula q5, is at same time enough elsatic in the range 1.15-1.30,
+	 and stric in the range 1.3 to 1.5.
+ 
+
+	 Example. Formula q5 with X=1 coin;
+	 Price	PENALITY
+	
+	 Price	Penality
+	 1.15	0.00
+	 1.17	0.04
+	 1.20	0.10
+	 1.30	0.36
+	 1.35	0.55
+	 1.40	0.78
+	 1.44	1.01
+
+
+	 As you can see, if the price is N>1.44$, the software burn the 100% of the coins exchanged, 
+	 from the wallet of the sender and receiver;
+
+
+	 The penality discurage buyer and seller to exchange coins when the price is N>1.15$;
+
+
+	 
+
+
+
+
+
+	 C. Inflation
+
+	 C1. Every year the software generates new coins only if it's necessary;
+	 It generates new coins if the average price of the last year is N>1.05 PB
+	 See below the formulas;
+
+
+	 C2. Let's assume the last year the averange number of coins was in total Y, in the whole network,
+	 and the averange price of the last year is N(y)>1.05;
+
+	 This year the software can generate max q10=Y*N(y)*k2 new coins.
+	 Remember, in 1 year there are 52 weeks.	 
+	 So, every week the software can generate max q11=q10/52 coins;
+	 See below for k2.
+
+
+	 If N>1.20 PB, the software uses the formula  q10=k2*Y*K2*N_max, where N_max=1.20.
+	 So the inflation is max 20%;
+
+
+
+	
+
+	 C3. Let's assume the coins are high in demand, and the cap 1.20 is too strict.
+	 It's necessary create another coin system, with its own inflationary rule.
+	 The two system work togheter, every one with its own inflationary rule.
+	 See the sub section 114.D Inflation secondary coin system.
+	 
+
+
+
+
+	 C4. By default the factor k2=1.
+	 The community can change it in the range 0<k2<1;
+	 
+
+	 
+	 C4. To know how to forge new coins, see the section about the forging ;
+
+
+	 C5. Furthermore, to avoid whales accumulate many coins, 
+	 the 5% of the coins generated are distribuited randomly;
+	
+
+
+
+
+
+
+	 D. Inflation secondary coin system.
+
+	 D1. The secondary coin system is like the first one.
+	 Change 1 parameters: N_max;
+
+	 D2. N_max=1.44
+	 Where come from 1.44?
+	 In theory the price cannot be higher then 1.44, see the section 144.C Inflation.
+
+
+
+
+	 D3. Stability.
+	 The secondary coin system probably is less stable than the original one, but is able to satifies
+	 the demand of coins when the demand is high.
+
+	 Remember every year the original coin system can growth 20%, the second one 44%; 
+
+	
+	 
+
+
+
+	 E. Timing
+
+	 If the price is N>1.05 every account can send or receive coins 1 times every 10 minutes as usual.
+	 This reduce high frequency bots activity etc;
+
+
+
+
+
+
+
+
+ 
+457. Observations 1. Payment system and storage of wealth.
+	 This is not a coin system you can use every time and every where.	
+	 Just as, you cannot use your car every time and every where: free car areas, etc
+
+	 This can be good as payment system in some cases. See observation about timing.
+	 As tool to store value, probably this is not the best, not the wrost;
+	 Probably only a diversified basket with several financial asset can help you to store value: 
+	 gold, house, usd, government bond, major crypto currency, etc..
+
+
+
+
+457. Observations 2. Why use it?
+	 Blockchain is resilent.
+
+	 Blockchain dont depend by a central point.
+	 If the central point makes some mistakes, the community pay for it.
+
+	 This system has some procedure to discurage aggressive distructive speculation, and market panic;
+	 In particular, collateral coins and coins burning should be a garantee for the community.
+
+
+
+
+
+539. Observations on Timing. 
+
+	 Probably this is not a system you use to buy a coffe, but it is fit when you buy something online,
+	 and you can wait 10-20 minutes the payment.
+
+	 The system is intentionally slow, so it slow down speculation, high frequency bots, etc.
+
+
+
+
+
+334. How and when use it.
+	 You should use this sytem in combination with another one.
+	 When there is a market crash, you should not use it, 
+	 because the system burn your coin if you exchange them.
+	 
+	 So do not touch them.
+	 Use another payment system.
+
+
+
+
+
+
+
+
+
+
+
+ 
+997. Forging.
+	 A. It's possible to forge coins only when the price 1 DSC > 1.15 PB, 
+	 to create inflation and decrease the price;
+
+	 DSC stand for: dynamic scarsity coin.
+
+	 B. There are several ways to forge coins;
+
+
+
+	 C. Simple lottery.
+	 People buy a lottery ticket with some cryptocurrencies, say ethereum coin.
+	 Ticket price 1$. Award 10 coins.
+	 The software burns the ethers.
+	 Percentage of coins generated in this way: 10%.
+	 
+	 
+
+
+
+	 D. Lottery POW;
+
+
+	 D1. You can mine a lottery ticket;
+	 It is very cheap, say 0.0001$;
+	 If you win say 100 RMDSC, you can mine 100 DSC.
+	 Be aware, you dont win 100DSC, you win the right to mine 100 DSC;
+	 The acronym RMDSC stand for: Right to Mine DSC;
+
+
+	 If you dont want mine, you can sell the winning ticket to another miner;
+	 The price of the winning ticket is arbitray.
+	 Miners has to mine the coins in less than 2 years, else he loses the right to mine the coins;
+
+
+
+	 D2. Why a lottery POW?
+	 Some people has cheap electricity, while others pay much more.
+	 Furthmore, some people has much money to buy GPU, ASIC and other mining machines.
+	 Both these situations are unfair and create the whales;
+
+	 The lottery POW fix partially this inequality;
+	
+
+	 D3. Why the software generates free tickets and not free coins?	
+	 Generate the 100% of the coins for free can be risky.
+	 The risk is: people do not appreciate easy coins.
+
+
+
+
+
+	 D4. There are at least 3 ways to use a winning ticket.
+	 1. You are a miner, so just mine the coins.
+	 2. You are not a miner, so sell the ticket to a miner.
+	 3. You are not a miner.
+	 Say you win 100 RMDSC, and the mining cost for 100 DSC is 100$;
+	 You pay say 120$ to the miner, the miner mines 100DSC, finally the miner returns you back 100DSC;
+	 If 100 DSC worth 100$, the profit for the miner is 20$;
+
+	 D5. Percentage 30%.
+
+	 
+
+
+
+
+
+
+	
+	 E. Charity donation 1.
+
+	 Example.
+	 In the software there are a small exchange: BTC, DSC, ETH, etc
+
+	 In the software the are the bitcoin address of several charity orgaizations.
+	 The community can select them;
+
+
+	 Let's assume the averange cost of production for 1 ether in the last 3 years was 50$;
+
+	 You send q21 ether coins to the eth adress A1;
+	 A1 is a valid eth address; 
+	 You cannot handle the account A1, only the software internal scripts can handle A1;
+
+	 The internal sripts send q21 ethers to the eth address A2.
+	 A2 is the address of a charity foundation.
+
+	 The software forges for you 50*q21 DSC;
+
+
+
+	 D6. Percentage 30%.
+
+
+
+
+
+
+
+
+	 F. Burn another cryptocurrency;
+
+	 Example.
+	 Let's assume the averange cost of production for 1 ether in the last 3 years was 50$;
+
+	 You send q20 ether coins to the eth adress A3;
+	 A3 is a valid eth address; 
+	 You cannot handle the account A3, only the software internal scripts can  handle A3;
+
+
+	 The adress A3 burns the q20 ethers.
+	 The software forge for you 50*q20 DSC;
+
+
+
+	 Rememeber the burning process for convenience.
+	 The eth adress A3 sends coins to the eth address A4.
+	 None can use A4, so your q20 ethers are gone.
+
+
+	 Be aware the software does not use the ether market price, 
+	 but the cost of production of the ether coin. 
+
+
+	 Percentage 30%.
+
+
+
+
+
+
+
+	 F. Cap
+	 The stablecoin market cap 2002 was 170 billions USD.
+	 I dont want the 1st year this coin worths more then 0.1% of the market cap,
+	 because if a project grow too fast it attract too much speculation, and it's hard to handle.
+
+
+	 So I set up the market cap for the 1st year 100 million.
+	 Every year by default it can grow max the 20% of the previous year.
+	 This depends by its adoption, the yearly inflation, etc.
+
+
+     See the section 114.C	
+	 In particular the formula q10=k2*Y*N_max
+
+
+
+
+
+
+
+
+	 
+
+
+
+
+ 
