@@ -1,0 +1,2 @@
+# stablecoin
+Dynamic scarsity coin.
